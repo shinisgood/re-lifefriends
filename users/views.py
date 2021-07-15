@@ -8,10 +8,9 @@ from django.http            import JsonResponse
 from django.views           import View
 
 from users.models           import User, Gender, Coupon
-from users.validations      import Validation
+from users.validations      import validate_email,validate_password, validate_name, validate_birth_date, validate_phone_number, validate_duplication
 from my_settings            import SECRET_KEY
 from decorators             import validate_login
-
 
 class SignupView(View):
     def post(self, request):
@@ -25,17 +24,17 @@ class SignupView(View):
             gender_string = data['gender']
             gender        = Gender.objects.get(gender=gender_string)
 
-            if not Validation.validate_email(self, email):
+            if not validate_email(self, email):
                 return JsonResponse({'message':'INVALID_EMAIL'}, status=400)
-            if not Validation.validate_password(self, password):
+            if not validate_password(self, password):
                 return JsonResponse({'message':'INVALID_PASSWORD'}, status=400)
-            if not Validation.validate_name(self, name):
+            if not validate_name(self, name):
                 return JsonResponse({'message':'INVALID_NAME'}, status=400)
-            if not Validation.validate_birth_date(self, birth_date):
+            if not validate_birth_date(self, birth_date):
                 return JsonResponse({'message':'INVALID_BIRTH_DATE'}, status=400)
-            if not Validation.validate_phone_number(self, phone_number):
+            if not validate_phone_number(self, phone_number):
                 return JsonResponse({'message':'INVALID_PHONE_NUMBER'}, status=400)
-            if not Validation.validate_duplication(self, email, phone_number):
+            if not validate_duplication(self, email, phone_number):
                 return JsonResponse({'message':'DUPLICATED_USER'}, status=400)
 
 

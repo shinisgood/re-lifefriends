@@ -10,7 +10,6 @@ from django.db.models           import Q, Count, Sum, Avg
 from django.db.models.functions import Coalesce
 from django.core.exceptions     import ObjectDoesNotExist
 
-from users.validations          import Validation
 from products.models            import Menu, Product
 from decorators                 import validate_login
 

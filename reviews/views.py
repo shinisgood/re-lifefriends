@@ -14,8 +14,6 @@ from reviews.models import Review, ReviewImage
 from users.models   import User
 from decorators     import validate_login
 
-from users.validations import Validation
-
 class ReviewView(View):
     @validate_login
     def post(self, request, product_id):
